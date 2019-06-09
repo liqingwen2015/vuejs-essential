@@ -7,6 +7,7 @@ export default [
     {
         path: '/',
         name: 'Home',
+        alias: '/topics',
         component: () => import('@/views/Home')
     },
     {
@@ -16,6 +17,7 @@ export default [
     {
         path: '/auth/login',
         name: 'Login',
+
         component: () => import('@/views/auth/Login')
     },
     // EditUsers
@@ -64,5 +66,34 @@ export default [
         name: 'Edit',
         component: () => import('@/views/articles/Create'),
         meta: { auth: true }
+    },
+    // 修改
+    // {
+    //     path: '/:user',
+    //     name: 'Column',
+    //     component: () => import('@/views/articles/Column')
+    // },
+    // 为
+    {
+        path: '/:user',
+        component: () => import('@/views/articles/Column'),
+        children: [
+            {
+                path: '',
+                name: 'Column',
+                component: () => import('@/views/articles/List.vue')
+            },
+            {
+                path: '/articles/:articleId/content',
+                name: 'Content',
+                component: () => import('@/views/articles/Content.vue')
+            }
+        ]
+    },
+    // 删除
+    {
+        path: '/articles/:articleId/content',
+        name: 'Content',
+        component: () => import('@/views/articles/Content.vue')
     },
 ]
